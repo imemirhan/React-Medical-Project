@@ -31,18 +31,48 @@ const App = () => {
       case 'user': return '/user-home'; // Regular user
       case 'doktor': return '/doctor-home'; // Doctor
       case 'admin': return '/admin-home'; // Admin
-      default: return '/login';
+      default: 
+      return '/login';
     }
   };
 
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/user-home" element={user ? (user.role === 'user' ? <UserHome /> : <Navigate to={getHomePage(user.role)} />) : <Navigate to="/login" />} />
-        <Route path="/doctor-home" element={user ? (user.role === 'doktor' ? <DoctorHome /> : <Navigate to={getHomePage(user.role)} />) : <Navigate to="/login" />} />
-        <Route path="/admin-home" element={user ? (user.role === 'admin' ? <AdminHome /> : <Navigate to={getHomePage(user.role)} />) : <Navigate to="/login" />} />
+        <Route
+         path="/login" element={<Login onLogin={handleLogin} />} />
+
+        <Route
+         path="/signup" element={<Signup />} />
+
+        <Route
+         path="/user-home" 
+         element={
+          user
+           ? (user.role === 'user'
+            ? <UserHome />
+             : <Navigate to={getHomePage(user.role)} />) 
+             : <Navigate to="/login" />} />
+
+        <Route
+         path="/doctor-home" 
+         element={
+          user
+           ? (user.role === 'doktor'
+            ? <DoctorHome />
+             : <Navigate to={getHomePage(user.role)} />) 
+             : <Navigate to="/login" />} />
+
+        <Route
+         path="/admin-home" 
+         element={user
+          ? (user.role === 'admin'
+           ? <AdminHome /> 
+           : <Navigate to={getHomePage(user.role)} />) 
+           : <Navigate to="/login" />} />
+
+        {/* Default Route */}
+        <Route path="/" element={<Navigate to={user ? getHomePage(user.role) : '/login'} />} />
       </Routes>
     </Router>
   );
