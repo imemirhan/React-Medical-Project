@@ -20,6 +20,7 @@ document.body.style.opacity = "0.95"
         password: '',
         email: '',
         role: 'user', // Default role: User
+        user_id: 0,
         specialty: '',
         license_number: '',
         contact_info: '',
@@ -37,17 +38,17 @@ document.body.style.opacity = "0.95"
     };
 
     // Handle form submission
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
-
+    
         // Basic validation
         if (!formData.username || !formData.password || !formData.email) {
             setError('Please fill in all required fields.');
             return;
         }
-
+    
         // Prepare data for submission
         let requestBody = {
             username: formData.username,
@@ -55,7 +56,7 @@ document.body.style.opacity = "0.95"
             email: formData.email,
             role: formData.role,
         };
-
+    
         // Add doctor-specific fields if role is "Doctor"
         if (formData.role === 'doktor') {
             if (!formData.specialty || !formData.license_number || !formData.contact_info) {
@@ -69,26 +70,50 @@ document.body.style.opacity = "0.95"
                 contact_info: formData.contact_info,
             };
         }
-
-        try {
-            // Decide the API endpoint based on role
-            const endpoint = formData.role === 'doktor' ? '/api/signup' : '/api/users';
-            const response = await axios.post(`http://localhost:5000${endpoint}`, requestBody);
-
-            setSuccess(response.data.message || 'Signup successful!');
-            setFormData({
-                username: '',
-                password: '',
-                email: '',
-                role: 'user',
-                specialty: '',
-                license_number: '',
-                contact_info: '',
+    
+        // Make the POST request for user signup
+        axios.post('http://localhost:5000/api/users', requestBody)
+            .then(response => {
+                const userId = response.data.user_id;  // Get the user_id from the response
+    
+                if (formData.role === 'doktor') {
+                    // Prepare the requestBody for the doctor data, including the newly created user_id
+                    const doctorData = {
+                        user_id: userId,  // Use the user_id from the Users table
+                        specialty: formData.specialty,
+                        license_number: formData.license_number,
+                        contact_info: formData.contact_info,
+                    };
+    
+                    // Insert doctor data after the user is created
+                    axios.post('http://localhost:5000/api/doctors', doctorData)
+                        .then(() => {
+                            setSuccess('Signup successful! User and Doctor data created.');
+                        })
+                        .catch(err => {
+                            setError(err.response?.data?.error || 'An error occurred while creating doctor data.');
+                        });
+                } else {
+                    setSuccess(response.data.message || 'Signup successful!');
+                }
+    
+                // Reset the form data
+                setFormData({
+                    username: '',
+                    password: '',
+                    email: '',
+                    role: 'user',
+                    user_id: 0,
+                    specialty: '',
+                    license_number: '',
+                    contact_info: '',
+                });
+            })
+            .catch(err => {
+                setError(err.response?.data?.error || 'An error occurred during signup.');
             });
-        } catch (err) {
-            setError(err.response?.data?.error || 'An error occurred during signup.');
-        }
     };
+    
 
     return (
         <div className="signup-form">
