@@ -1,101 +1,115 @@
-Medical Information System Recipe Application
-A full-stack web application that allows users, doctors, and admins to interact within a medical information system. The project includes role-based authentication, CRUD operations, and routing to provide a seamless user experience.
+# 🏥 Medical Information System Recipe Application
 
-Features
-Role-based Authentication:
+A full-stack web application designed to manage users, doctors, and administrators in a medical information system. This project implements role-based authentication, CRUD operations, and seamless navigation using React and Node.js.
 
-Users, doctors, and admins can log in to their respective dashboards.
-Login and signup functionalities with validations.
-CRUD Operations:
+---
 
-Users can manage their profiles and settings.
-Admins can manage user roles and permissions.
-Doctors can manage medical data related to their patients.
-Responsive Routing:
+## 🛠 Tech Stack
 
-Each user type is redirected to their respective home page.
-Unauthorized access to other roles’ pages is restricted.
-Logout Functionality:
+### Frontend:
+- **React**: Dynamic user interface and component-based architecture.
+- **React Router**: Page navigation and route protection.
+- **CSS**: Styling for a user-friendly and responsive UI.
 
-Clears session data and redirects to the login page.
-Tech Stack
-Frontend:
-React: For building a dynamic and responsive user interface.
-React Router: For routing and navigation.
-CSS: For styling components.
-Backend:
-Node.js: Server-side logic.
-Express.js: For creating API routes.
-MySQL: Database for storing and managing user and application data.
-Axios: For making API calls.
-Installation
-Prerequisites
-Node.js installed on your system.
-MySQL installed and running.
-Steps
-Clone the repository:
+### Backend:
+- **Node.js**: Server-side runtime environment.
+- **Express.js**: RESTful API development.
+- **MySQL**: Database for storing users, doctors, prescriptions, and more.
+
+---
+
+## 🚀 Features
+
+### User Authentication:
+- Role-based login for **users**, **doctors**, and **admins**.
+- Password and user validation using backend logic.
+
+### CRUD Operations:
+- Perform **Create**, **Read**, **Update**, and **Delete** operations for:
+  - Users
+  - Doctors
+  - Prescriptions
+  - Medical history
+- API endpoints for managing data seamlessly.
+
+### Role-Based Functionality:
+- **Users**: View personal information and settings.
+- **Doctors**: Manage patient prescriptions and medical data.
+- **Admins**: Oversee user roles and permissions.
+
+### Additional Features:
+- **Session Management**: Login sessions are managed securely.
+- **Protected Routes**: Prevent unauthorized access to restricted pages.
+- **Logout Functionality**: Clears session and redirects to login.
+
+---
+
+## 📂 Project Structure
+
+medical-information-system ├── client │ ├── public │ ├── src │ │ ├── components │ │ ├── pages │ │ │ ├── Login.js │ │ │ ├── Signup.js │ │ │ ├── UserHome.js │ │ │ ├── DoctorHome.js │ │ │ ├── AdminHome.js │ │ │ └── Settings.js │ │ ├── App.js │ │ └── index.js ├── server │ ├── db.js │ ├── index.js │ └── routes │ ├── users.js │ ├── doctors.js │ └── prescriptions.js └── README.md
+
+yaml
+Copy code
+
+---
+
+## 🖥️ Installation and Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/medical-information-system.git
+Navigate to the project folder:
 
 bash
 Copy code
-git clone https://github.com/your-username/medical-info-system.git
-cd medical-info-system
-Install dependencies:
+cd medical-information-system
+Install dependencies for the client:
 
 bash
 Copy code
-npm install
 cd client
 npm install
-Set up the database:
-
-Import the provided schema.sql file to your MySQL database.
-Configure database credentials in server/db.js.
-Start the server:
+Install dependencies for the server:
 
 bash
 Copy code
-cd ..
-npm start
-Start the frontend:
+cd ../server
+npm install
+Configure the database:
+
+Create a MySQL database.
+Update db.js with your database credentials.
+Start the backend server:
 
 bash
 Copy code
-cd client
+node index.js
+Start the frontend development server:
+
+bash
+Copy code
+cd ../client
 npm start
-API Endpoints
-Users
-POST /login: Authenticate a user with email and password.
-POST /signup: Register a new user (or doctor based on the role).
-GET /users: Fetch all users (Admin-only).
-Doctors
-POST /doctors: Add a new doctor profile.
-GET /doctors: Fetch doctor-specific data.
-Other Routes
-POST /logout: Clear session data and redirect to login.
-Pages
-Login: The landing page for user authentication.
-Signup: Registration page with dynamic fields for doctors.
-User Home: Dashboard for regular users.
-Doctor Home: Dashboard for doctors.
-Admin Home: Dashboard for admins.
-Settings: Shared settings page for all user types.
-Usage
-Login or Sign Up:
+🧪 API Endpoints
+Users:
+POST /api/users - Create a new user.
+GET /api/users - Retrieve all users.
+PUT /api/users/:id - Update a user by ID.
+DELETE /api/users/:id - Delete a user by ID.
+Doctors:
+POST /api/doctors - Create a new doctor.
+GET /api/doctors - Retrieve all doctors.
+PUT /api/doctors/:id - Update a doctor by ID.
+DELETE /api/doctors/:id - Delete a doctor by ID.
+Prescriptions:
+POST /api/prescriptions - Create a new prescription.
+GET /api/prescriptions - Retrieve all prescriptions.
+PUT /api/prescriptions/:id - Update a prescription by ID.
+DELETE /api/prescriptions/:id - Delete a prescription by ID.
+📸 Screenshots
+Login Page:
 
-Visit the login page to access the application.
-Admins and doctors can create new user accounts via the signup page.
-Role-Based Access:
+Signup Page:
 
-Admins: Manage all system users.
-Doctors: View and manage their patient-related data.
-Users: View personal profiles and interact with the system.
-Logout:
-
-Click the logout button to clear session and return to the login page.
-Contributing
-Contributions are welcome! Please fork this repository and submit a pull request for review.
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Feel free to customize this further based on additional features or changes you make to the project!
+📝 License
+This project is licensed under the MIT License.
