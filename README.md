@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+Medical Information System Recipe Application
+A full-stack web application that allows users, doctors, and admins to interact within a medical information system. The project includes role-based authentication, CRUD operations, and routing to provide a seamless user experience.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features
+Role-based Authentication:
 
-## Available Scripts
+Users, doctors, and admins can log in to their respective dashboards.
+Login and signup functionalities with validations.
+CRUD Operations:
 
-In the project directory, you can run:
+Users can manage their profiles and settings.
+Admins can manage user roles and permissions.
+Doctors can manage medical data related to their patients.
+Responsive Routing:
 
-### `npm start`
+Each user type is redirected to their respective home page.
+Unauthorized access to other roles’ pages is restricted.
+Logout Functionality:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Clears session data and redirects to the login page.
+Tech Stack
+Frontend:
+React: For building a dynamic and responsive user interface.
+React Router: For routing and navigation.
+CSS: For styling components.
+Backend:
+Node.js: Server-side logic.
+Express.js: For creating API routes.
+MySQL: Database for storing and managing user and application data.
+Axios: For making API calls.
+Installation
+Prerequisites
+Node.js installed on your system.
+MySQL installed and running.
+Steps
+Clone the repository:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+Copy code
+git clone https://github.com/your-username/medical-info-system.git
+cd medical-info-system
+Install dependencies:
 
-### `npm test`
+bash
+Copy code
+npm install
+cd client
+npm install
+Set up the database:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Import the provided schema.sql file to your MySQL database.
+Configure database credentials in server/db.js.
+Start the server:
 
-### `npm run build`
+bash
+Copy code
+cd ..
+npm start
+Start the frontend:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+bash
+Copy code
+cd client
+npm start
+API Endpoints
+Users
+POST /login: Authenticate a user with email and password.
+POST /signup: Register a new user (or doctor based on the role).
+GET /users: Fetch all users (Admin-only).
+Doctors
+POST /doctors: Add a new doctor profile.
+GET /doctors: Fetch doctor-specific data.
+Other Routes
+POST /logout: Clear session data and redirect to login.
+Pages
+Login: The landing page for user authentication.
+Signup: Registration page with dynamic fields for doctors.
+User Home: Dashboard for regular users.
+Doctor Home: Dashboard for doctors.
+Admin Home: Dashboard for admins.
+Settings: Shared settings page for all user types.
+Usage
+Login or Sign Up:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Visit the login page to access the application.
+Admins and doctors can create new user accounts via the signup page.
+Role-Based Access:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Admins: Manage all system users.
+Doctors: View and manage their patient-related data.
+Users: View personal profiles and interact with the system.
+Logout:
 
-### `npm run eject`
+Click the logout button to clear session and return to the login page.
+Contributing
+Contributions are welcome! Please fork this repository and submit a pull request for review.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to customize this further based on additional features or changes you make to the project!
