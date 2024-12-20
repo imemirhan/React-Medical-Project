@@ -7,11 +7,17 @@ import AdminHome from './pages/AdminHome';
 import Signup from './pages/Signup';
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  // Initialize state from localStorage
+  const [user, setUser] = useState(() => {
+    const userId = localStorage.getItem('userId');
+    const role = localStorage.getItem('role');
+    return userId && role ? { userId, role } : null;
+  });
 
   // Handle login data and update user state
   const handleLogin = ({ userId, role }) => {
-    setUser({ userId, role });
+    const userData = { userId, role };
+    setUser(userData);
     localStorage.setItem('userId', userId);
     localStorage.setItem('role', role);
   };
