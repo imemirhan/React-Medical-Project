@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 const LogoutButton = () => {
     const navigate = useNavigate();
@@ -11,9 +11,7 @@ const LogoutButton = () => {
     };
 
     return (
-        <button onClick={handleLogout} style={{ padding: '10px', margin: '10px', background: 'red', color: 'white', border: 'none', borderRadius: '5px' }}>
-            Logout
-        </button>
+        <button onClick={handleLogout} className="dropdown-item">Logout</button>
     );
 };
 

@@ -1,4 +1,6 @@
-import LogoutButton from "../components/LogoutButton";
+import Navbar from "../components/Navbar"
+import '../styles/AdminHome.css'
+
 function AdminHome() {
     // Body Styling
     //#region 
@@ -11,10 +13,9 @@ function AdminHome() {
     document.body.style.opacity = "0.95"
     //#endregion
     return(
-        <>
-        <h1>Hello Admin!</h1>
-        <LogoutButton></LogoutButton>
-        </>
+        <div className="admin-home-container">
+            <Navbar/>
+        </div>
     );
 };
 export default AdminHome;

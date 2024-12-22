@@ -15,10 +15,11 @@ const App = () => {
   });
 
   // Handle login data and update user state
-  const handleLogin = ({ userId, role }) => {
-    const userData = { userId, role };
+  const handleLogin = ({ userId, username, role }) => {
+    const userData = { userId, username, role };
     setUser(userData);
     localStorage.setItem('userId', userId);
+    localStorage.setItem('userName', username);
     localStorage.setItem('role', role);
   };
 
@@ -26,8 +27,9 @@ const App = () => {
   useEffect(() => {
     const role = localStorage.getItem('role');
     const userId = localStorage.getItem('userId');
+    const name = localStorage.getItem('userName');
     if (role && userId) {
-      setUser({ userId, role });
+      setUser({ name, userId, role });
     }
   }, []);
 

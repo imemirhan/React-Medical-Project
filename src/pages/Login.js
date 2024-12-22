@@ -28,9 +28,10 @@ document.body.style.opacity = "0.95"
 
     try {
       const response = await axios.post('http://localhost:5000/api/login', { email, password });
-
-      const { userId, role } = response.data;
-      onLogin({ userId, role }); // Pass the user data to App.js
+      console.log(response.data)
+      const { userId, username, role } = response.data;
+      console.log('Username:', username); // Log the username to verify
+      onLogin({ userId, username, role }); // Pass the user data to App.js
 
       // Redirect based on role
       if (role === 'user') {

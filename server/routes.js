@@ -254,7 +254,6 @@ router.post('/login', (req, res) => {
     if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required!' });
     }
-
     // Check if user exists in Users table
     db.query('SELECT * FROM Users WHERE email = ? AND password = ?', [email, password], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -262,12 +261,13 @@ router.post('/login', (req, res) => {
         if (results.length === 0) {
             return res.status(401).json({ error: 'Invalid email or password!' });
         }
-
         const user = results[0]; // Assuming there's only one result
-        const { user_id, role } = user;
+        const user_id = user.user_id;
+        const username = user.username;
+        const role = user.role;
 
         // Send back user data and role
-        res.json({ userId: user_id, role });
+        res.json({ userId: user_id, username, role });
     });
 });
 //#endregion
