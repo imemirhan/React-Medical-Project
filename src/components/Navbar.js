@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'; // Make sure to create and style this CSS file
 import LogoutButton from './LogoutButton';
-const Navbar = () => {
+const Navbar = ({visitRole, isResponsible} ) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -13,12 +13,20 @@ const Navbar = () => {
             <div className="navbar-left">
                 <Link to="/" className="nav-link">Home</Link>
                 <Link to="/about" className="nav-link">About Us</Link>
-                <Link to="/prescriptions" className="nav-link">Prescriptions</Link>
+                {visitRole === 'doctor' && (
+                    <Link to="/prescriptions" className="nav-link">Make Prescription</Link>
+                )}
+                {visitRole === 'doctor' && (
+                    <Link to="/medical-history" className="nav-link">Prescription History</Link>
+                )}
+                {visitRole === "user" && !isResponsible && (
+                    <Link to="/find-doctors" className="nav-link">Find Your Doctor</Link>
+                )}
             </div>
             <div className="navbar-right">
                 <div className="profile" onClick={toggleDropdown}>
                     <span className='user-welcome'>Welcome {localStorage.userName}</span>
-                    <img src={require('../assets/userLogo.jpg')} alt="Profile" className="profile-pic" />
+                    <img src='../assets/userLogo.jpg' alt="Profile" className="profile-pic" />
                     {dropdownOpen && (
                         <div className="dropdown-menu">
                             <Link to="/profile" className="dropdown-item">My Profile</Link>

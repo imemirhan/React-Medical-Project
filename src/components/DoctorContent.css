@@ -1,0 +1,18 @@
+.doctor-content {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.my-patients, .doctor-medicine-stocks {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.my-patients {
+    color: #2c3e50;
+}
+
+.doctor-medicine-stocks {
+    color: #2c3e50;
+}

@@ -67,13 +67,12 @@ connection.connect((err) => {
             FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
             FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id) ON DELETE SET NULL
         )`,
-
-        `CREATE TABLE IF NOT EXISTS Warnings (
-            warning_id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id INT,
-            warning_text TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+        `CREATE TABLE IF NOT EXISTS Responsible (
+            user_id INT NOT NULL,
+            doctor_id INT NOT NULL,
+            PRIMARY KEY (user_id),
+            FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+            FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id) ON DELETE CASCADE
         )`
     ];
 

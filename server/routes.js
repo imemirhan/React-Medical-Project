@@ -13,6 +13,14 @@ router.get('/users', (req, res) => {
         res.json(results);
     });
 });
+//Get selected users
+router.get('/users/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM Users WHERE user_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
 
 // Create a new user
 router.post('/users', (req, res) => {
@@ -91,6 +99,15 @@ router.delete('/patients/:id', (req, res) => {
 // Get all doctors
 router.get('/doctors', (req, res) => {
     db.query('SELECT * FROM Doctors', (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+//Get selected doctors by user_id
+router.get('/doctors/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM Doctors WHERE user_id = ?', [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
@@ -271,3 +288,53 @@ router.post('/login', (req, res) => {
     });
 });
 //#endregion
+
+// ** MEDICINE ROUTES **
+//#region
+// Get all medicines
+router.get('/medicines', (req, res) => {
+    db.query('SELECT * FROM Medicines', (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+//#endregion
+
+// ** RESPONSIBLES ROUTES **
+//#region
+// Get all responsibles to user
+router.get('/responsibles/:id/user', (req, res) => {
+        const { id } = req.params;
+        db.query('SELECT * FROM Responsible WHERE user_id = ?', [id], (err, results) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(results);
+        });
+});
+// Get all responsibles to doctor
+router.get('/responsibles/:id/doctor', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM Responsible WHERE doctor_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+//#endregion
+//add responsible
+router.post('/responsibles', (req, res) => {
+    const { doctor_id, user_id } = req.body;
+    db.query('INSERT INTO Responsible (doctor_id, user_id) VALUES (?, ?)', 
+             [doctor_id, user_id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ responsible_id: results.insertId });
+    });
+});
+
+//delete responsible
+router.delete('/responsibles/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM Responsible WHERE user_id = ?', [id], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(204).send();
+    });
+});

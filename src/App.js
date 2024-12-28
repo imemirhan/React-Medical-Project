@@ -5,6 +5,7 @@ import UserHome from './pages/UserHome';
 import DoctorHome from './pages/DoctorHome';
 import AdminHome from './pages/AdminHome';
 import Signup from './pages/Signup';
+import DoctorListing from './pages/DoctorListing';
 
 const App = () => {
   // Initialize state from localStorage
@@ -52,6 +53,9 @@ const App = () => {
 
         <Route
          path="/signup" element={<Signup />} />
+
+        <Route
+          path="/find-doctors" element={<DoctorListing />} />
 
         <Route
          path="/user-home" 

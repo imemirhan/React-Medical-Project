@@ -1,21 +1,42 @@
 import '../styles/UserHome.css'
 import Navbar from '../components/Navbar';
+import UserContent from '../components/UserContent';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 function UserHome() {
-    // Body Styling
-    //#region 
-    // document.body.style.backgroundImage = 'linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%)'
-    // document.body.style.backgroundImage = 'linear-gradient(to top, #d9afd9 0%, #97d9e1 100%)'
-    // document.body.style.backgroundAttachment = 'fixed'
-    // document.body.style.backgroundRepeat = "no-repeat"
-    // document.body.style.fontFamily = "Vibur"
-    // document.body.style.fontFamily = "Abel"
-    // document.body.style.opacity = "0.95"
-    //#endregion
+    const [isResponsible, setIsResponsible] = useState(false);
+
+        useEffect(() => {
+            const userId = localStorage.getItem('userId');
+            console.log('User ID:', userId); // Added console log to check userId
+            if (userId) {
+                axios.get(`http://localhost:5000/api/responsibles/${userId}/user`)
+                    .then(response => {
+                        console.log('API response:', response);
+                        if (response.data && response.data.length > 0) {
+                            setIsResponsible(true);
+                        } else {
+                            setIsResponsible(false);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching responsible data:', error);
+                        setIsResponsible(false);
+                    });
+            } else {
+                setIsResponsible(false);
+            }
+        }, []);
+
     return(
+        <>
         <div className="user-home-container">
-            <Navbar/>
-            {/* <h1>Sonunda la!</h1> */}
+            <Navbar 
+            visitRole="user"
+            isResponsible={isResponsible}/>
         </div>
+            <UserContent/>
+        </>
     );
 }
 export default UserHome;
