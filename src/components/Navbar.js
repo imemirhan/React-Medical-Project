@@ -14,9 +14,6 @@ const Navbar = ({visitRole, isResponsible} ) => {
                 <Link to="/" className="nav-link">Home</Link>
                 <Link to="/about" className="nav-link">About Us</Link>
                 {visitRole === 'doctor' && (
-                    <Link to="/prescriptions" className="nav-link">Make Prescription</Link>
-                )}
-                {visitRole === 'doctor' && (
                     <Link to="/medical-history" className="nav-link">Prescription History</Link>
                 )}
                 {visitRole === "user" && !isResponsible && (

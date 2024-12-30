@@ -6,6 +6,7 @@ import DoctorHome from './pages/DoctorHome';
 import AdminHome from './pages/AdminHome';
 import Signup from './pages/Signup';
 import DoctorListing from './pages/DoctorListing';
+import MakePrescription from './pages/MakePrescription';
 
 const App = () => {
   // Initialize state from localStorage
@@ -56,6 +57,9 @@ const App = () => {
 
         <Route
           path="/find-doctors" element={<DoctorListing />} />
+        
+        <Route
+          path="/make-prescription/:userId" element={<MakePrescription />} />
 
         <Route
          path="/user-home" 

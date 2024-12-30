@@ -49,13 +49,13 @@ connection.connect((err) => {
         `CREATE TABLE IF NOT EXISTS Prescriptions (
             prescription_id INT AUTO_INCREMENT PRIMARY KEY,
             doctor_id INT,
-            patient_id INT,
-            prescription_date DATE,
+            user_id INT,
+            prescription_date DATE DEFAULT CURRENT_TIMESTAMP,
             medication VARCHAR(100),
             dosage VARCHAR(100),
             notes TEXT,
             FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id) ON DELETE CASCADE,
-            FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE
+            FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
         )`,
 
         `CREATE TABLE IF NOT EXISTS MedicalHistory (

@@ -1,62 +1,72 @@
-import React from 'react';
-import './DoctorContent.css';
-import Medicine from './Medicine.js';
-import Patients from './Patients.js';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React from "react";
+import "./DoctorContent.css";
+import Medicine from "./Medicine.js";
+import Patients from "./Patients.js";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 function DoctorContent() {
-    const [medicineData, setMedicineData] = useState([]);
-    
-    useEffect(() => {
-        const fetchMedicineData = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/medicines');
-                const formattedData = response.data.map(medicine => ({
-                    id: medicine.medicineId,
-                    name: medicine.medicineName,
-                    image: medicine.medicineImage,
-                    description: medicine.medicineDescription,
-                    stock: medicine.medicineStock
-                }));
-                setMedicineData(formattedData);
-            } catch (error) {
-                console.error('Error fetching medicine data:', error);
-            }
-        };
+  const [medicineData, setMedicineData] = useState([]);
 
-        fetchMedicineData();
-    }, []);
-    const [patientsData, setPatientsData] = useState([]);
+  useEffect(() => {
+    const fetchMedicineData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/medicines");
+        const formattedData = response.data.map((medicine) => ({
+          id: medicine.medicineId,
+          name: medicine.medicineName,
+          image: medicine.medicineImage,
+          description: medicine.medicineDescription,
+          stock: medicine.medicineStock,
+        }));
+        setMedicineData(formattedData);
+      } catch (error) {
+        console.error("Error fetching medicine data:", error);
+      }
+    };
 
-    useEffect(() => {
-        const fetchPatientsData = async () => {
-            try {
-                const userId = localStorage.getItem('userId');
-                const response = await axios.get(`http://localhost:5000/api/doctors/${userId}`);
-                const doctor = response.data[0];
-                const doctorId = doctor.doctor_id;
-                const response2 = await axios.get(`http://localhost:5000/api/responsibles/${doctorId}/doctor`);
-                const patientIds = response2.data.map(responsible => responsible.user_id);
-                const usersResponse = await axios.get('http://localhost:5000/api/users');
-                const usersData = usersResponse.data.filter(user => patientIds.includes(user.user_id));
-                setPatientsData(usersData);
-            } catch (error) {
-                console.error('Error fetching patients data:', error);
-            }
-        };
+    fetchMedicineData();
+  }, []);
+  const [patientsData, setPatientsData] = useState([]);
 
-        fetchPatientsData();
-    }, []);
-    return (
-        <div className="doctor-content">
-            {console.log(patientsData)}
-            <h2 className='my-patients'>My Patients</h2>
-            <Patients data={patientsData} />
-            <h2 className='doctor-medicine-stocks'>Medicine Stocks</h2>
-            <Medicine data={medicineData} />
-        </div>
-    );
+  useEffect(() => {
+    const fetchPatientsData = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await axios.get(
+          `http://localhost:5000/api/doctors/${userId}/user`
+        );
+        const doctor = response.data[0];
+        const doctorId = doctor.doctor_id;
+        const response2 = await axios.get(
+          `http://localhost:5000/api/responsibles/${doctorId}/doctor`
+        );
+        const patientIds = response2.data.map(
+          (responsible) => responsible.user_id
+        );
+        const usersResponse = await axios.get(
+          "http://localhost:5000/api/users"
+        );
+        const usersData = usersResponse.data.filter((user) =>
+          patientIds.includes(user.user_id)
+        );
+        setPatientsData(usersData);
+      } catch (error) {
+        console.error("Error fetching patients data:", error);
+      }
+    };
+
+    fetchPatientsData();
+  }, []);
+  return (
+    <div className="doctor-content">
+      {console.log(patientsData)}
+      <h2 className="my-patients">My Patients</h2>
+      <Patients data={patientsData} />
+      <h2 className="doctor-medicine-stocks">Medicine Stocks</h2>
+      <Medicine data={medicineData} />
+    </div>
+  );
 }
 
 export default DoctorContent;

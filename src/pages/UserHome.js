@@ -8,11 +8,9 @@ function UserHome() {
 
         useEffect(() => {
             const userId = localStorage.getItem('userId');
-            console.log('User ID:', userId); // Added console log to check userId
             if (userId) {
                 axios.get(`http://localhost:5000/api/responsibles/${userId}/user`)
                     .then(response => {
-                        console.log('API response:', response);
                         if (response.data && response.data.length > 0) {
                             setIsResponsible(true);
                         } else {

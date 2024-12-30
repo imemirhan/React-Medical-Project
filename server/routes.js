@@ -105,9 +105,18 @@ router.get('/doctors', (req, res) => {
 });
 
 //Get selected doctors by user_id
-router.get('/doctors/:id', (req, res) => {
+router.get('/doctors/:id/user', (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM Doctors WHERE user_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+//Get selected doctors by doctor_id
+router.get('/doctors/:id/doctor', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM Doctors WHERE doctor_id = ?', [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
     });
@@ -154,11 +163,20 @@ router.get('/prescriptions', (req, res) => {
     });
 });
 
+//Get selected prescriptions by user_id
+router.get('/prescriptions/:id/user', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM Prescriptions WHERE user_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
 // Create a new prescription
 router.post('/prescriptions', (req, res) => {
-    const { doctor_id, patient_id, prescription_date, medication, dosage, notes } = req.body;
-    db.query('INSERT INTO Prescriptions (doctor_id, patient_id, prescription_date, medication, dosage, notes) VALUES (?, ?, ?, ?, ?, ?)', 
-             [doctor_id, patient_id, prescription_date, medication, dosage, notes], (err, results) => {
+    const { doctor_id, user_id, prescription_date, medication, dosage, notes } = req.body;
+    db.query('INSERT INTO Prescriptions (doctor_id, user_id, prescription_date, medication, dosage, notes) VALUES (?, ?, ?, ?, ?, ?)', 
+             [doctor_id, user_id, prescription_date, medication, dosage, notes], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ prescription_id: results.insertId });
     });
@@ -298,6 +316,38 @@ router.get('/medicines', (req, res) => {
         res.json(results);
     });
 });
+
+// Get selected medicines by medicine name
+router.get('/medicines/:name', (req, res) => {
+    const { name } = req.params;
+    db.query('SELECT * FROM Medicines WHERE medicineName = ?', [name], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+// update medicine stock by medicine id
+router.put('/medicines/:id', (req, res) => {
+    const { id } = req.params;
+    const { stock } = req.body;
+    db.query('UPDATE Medicines SET medicineStock = ? WHERE medicineId = ?', 
+             [stock, id], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(204).send();
+    });
+});
+
+//update medicine stock by medicine name
+router.put('/medicines/:name/name', (req, res) => {
+    const { name } = req.params;
+    const { quantity } = req.body;
+    db.query('UPDATE Medicines SET medicineStock = ? WHERE medicineName = ?', 
+             [quantity, name], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(204).send();
+    });
+});
+//#endregion
 //#endregion
 
 // ** RESPONSIBLES ROUTES **
