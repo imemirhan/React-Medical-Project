@@ -55,6 +55,22 @@ function MakePrescription() {
             }).catch(error => {
                 console.error('Error reducing medicine stock:', error);
             });
+            axios.post(`http://localhost:5000/api/medicalhistory`, {
+                user_id: userId,
+                doctor_id: doctorId,
+                event_type: "Prescription",
+                medication_name: prescription.medication,
+                medication_dosage: prescription.dosage,
+                medication_notes: prescription.notes,
+                event_date: new Date().toISOString(),
+                event_type: 'Prescription',
+            })
+            .then(() => {
+                console.log('Medical history updated successfully');
+            })
+            .catch(error => {
+                console.error('Error updating medical history:', error);
+            });
             navigate('/doctor-home');
         })
         .catch(error => {

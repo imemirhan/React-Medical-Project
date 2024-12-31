@@ -10,13 +10,12 @@
     border-radius: 8px;
     padding: 16px;
     margin: 8px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease; /* Add transition for smooth scaling */
+    transition: box-shadow 0.3s ease; /* Add transition for smooth box-shadow effect */
+    height: 100px;
 }
 
 .patient-card:hover {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: translateX(-5px); /* Move vertically up */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box-shadow effect on hover */
 }
 
 .patient-image {
@@ -45,7 +44,7 @@ h2 {
 
 .leave-patient-button {
     margin: 0;
-    margin-left: auto;
+    margin-left: 1em;
     padding: 8px 16px;
     float: right;
     background-color: #ff4d4d;
@@ -60,4 +59,22 @@ h2 {
 
 .leave-patient-button:hover {
     background-color: #e60000;
+}
+
+.make-prescription-button {
+    margin: 0;
+    margin-left: auto;
+    padding: 8px 16px;
+    float: right;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto; /* Ensure the button width is auto */
+    max-width: 100%; /* Ensure the button does not exceed its container */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+.make-prescription-button:hover {
+    background-color: #218838;
 }

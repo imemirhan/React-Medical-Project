@@ -49,6 +49,7 @@ const DoctorListing = () => {
         })
         .then(() => {
           alert("Doctor chosen successfully!");
+          localStorage.setItem("responsibleDoctor", doctorId);
           window.location.href = "/user-home";
         })
         .catch((error) => {

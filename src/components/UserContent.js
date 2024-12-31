@@ -82,6 +82,7 @@ const UserContent = () => {
                                                                     setDoctorUser([]);
                                                                     setShowTextbox(false);
                                                                     alert('You have left the doctor successfully');
+                                                                    localStorage.removeItem('responsibleDoctor');
                                                                     window.location.reload();
                                                                 } catch (error) {
                                                                     console.error('Error leaving doctor:', error);

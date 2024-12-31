@@ -35,9 +35,9 @@ router.post('/users', (req, res) => {
 // Update a user
 router.put('/users/:id', (req, res) => {
     const { id } = req.params;
-    const { username, email, role } = req.body;
-    db.query('UPDATE Users SET username = ?, email = ?, role = ? WHERE user_id = ?', 
-             [username, email, role, id], (err) => {
+    const { username } = req.body;
+    db.query('UPDATE Users SET username = ? WHERE user_id = ?', 
+             [username, id], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(204).send();
     });
@@ -386,5 +386,43 @@ router.delete('/responsibles/:id', (req, res) => {
     db.query('DELETE FROM Responsible WHERE user_id = ?', [id], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(204).send();
+    });
+});
+
+// ** MEDICALHISTORY ROUTES **
+//#region
+// Get all medical history
+router.get('/medicalhistory', (req, res) => {
+    db.query('SELECT * FROM MedicalHistory', (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+// Get selected medical history by user_id
+router.get('/medicalhistory/:id/user', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM MedicalHistory WHERE user_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+// Get selected medical history by doctor_id
+router.get('/medicalhistory/:id/doctor', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM MedicalHistory WHERE doctor_id = ?', [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
+// Create a new medical history
+router.post('/medicalhistory', (req, res) => {
+    const { user_id, doctor_id, event_type, medication_name, medication_dosage, medication_notes, event_date } = req.body;
+    db.query('INSERT INTO MedicalHistory (user_id, doctor_id, event_type, medication_name, medication_dosage, medication_notes, event_date) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+             [user_id, doctor_id, event_type, medication_name, medication_dosage, medication_notes, event_date], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(201).json({ history_id: results.insertId });
     });
 });

@@ -62,3 +62,71 @@
 .prescription-card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.profile-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.update-profile-button,
+.update-accept-btn,
+.update-cancel-btn {
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 49%;
+}
+
+.update-profile-button {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.update-profile-button:hover {
+    background-color: #0056b3;
+}
+
+.update-accept-btn {
+    background-color: #28a745;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.update-accept-btn:hover {
+    background-color: #218838;
+}
+
+.update-cancel-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.update-cancel-btn:hover {
+    background-color: #c82333;
+}

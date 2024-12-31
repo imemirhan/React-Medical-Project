@@ -1,0 +1,42 @@
+/* HistoryContent.css */
+.history-container {
+    margin-bottom: 2em;
+    margin-top: 6em;
+}
+
+.history-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0;
+    transition: box-shadow 0.3s ease; /* Add transition for smooth box-shadow effect */
+}
+
+.history-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box-shadow effect on hover */
+}
+
+.history-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.history-details p {
+    margin: 4px 0;
+    color: #333;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.history-subdetail {
+    display: inline;
+    justify-content: space-between;
+    margin-top: 8px;
+}

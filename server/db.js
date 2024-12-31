@@ -60,11 +60,14 @@ connection.connect((err) => {
 
         `CREATE TABLE IF NOT EXISTS MedicalHistory (
             history_id INT AUTO_INCREMENT PRIMARY KEY,
-            patient_id INT,
+            user_id INT,
             doctor_id INT,
-            description TEXT,
-            event_date DATE,
-            FOREIGN KEY (patient_id) REFERENCES Patients(patient_id) ON DELETE CASCADE,
+            event_type TEXT,
+            medication_name TEXT DEFAULT NULL,
+            medication_dosage TEXT DEFAULT NULL,
+            medication_notes TEXT DEFAULT NULL,
+            event_date DATE DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
             FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id) ON DELETE SET NULL
         )`,
         `CREATE TABLE IF NOT EXISTS Medicines (

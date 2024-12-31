@@ -1,6 +1,6 @@
 .medicine-card {
-    width: 300px;
-    height: 450px;
+    width: 241px;
+    height: 400px;
     display: inline-block;
     margin: 10px;
     border: 1px solid #ccc;
@@ -11,12 +11,14 @@
 
 .medicine-image {
     width: 100%;
-    height: 300px;
+    height: 50%;
     object-fit: cover;
 }
 
 .medicine-details {
     padding: 20px;
+    width: inherit;
+    height: 50%;
 }
 
 .medicine-name {

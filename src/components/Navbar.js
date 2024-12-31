@@ -26,7 +26,7 @@ const Navbar = ({visitRole, isResponsible} ) => {
                     <img src='../assets/userLogo.jpg' alt="Profile" className="profile-pic" />
                     {dropdownOpen && (
                         <div className="dropdown-menu">
-                            <Link to="/profile" className="dropdown-item">My Profile</Link>
+                            <Link to={`/profile/${localStorage.userId}`} className="dropdown-item">My Profile</Link>
                             <LogoutButton/>
                         </div>
                     )}

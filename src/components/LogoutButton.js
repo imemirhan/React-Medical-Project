@@ -7,6 +7,7 @@ const LogoutButton = () => {
     const handleLogout = () => {
         // Clear stored user data
         localStorage.clear();
+        window.location.reload();
         navigate('/login');
     };
 

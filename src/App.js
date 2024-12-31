@@ -7,6 +7,8 @@ import AdminHome from './pages/AdminHome';
 import Signup from './pages/Signup';
 import DoctorListing from './pages/DoctorListing';
 import MakePrescription from './pages/MakePrescription';
+import Profile from './pages/Profile';
+import PrescriptionHistory from './pages/PrescriptionHistory';
 
 const App = () => {
   // Initialize state from localStorage
@@ -50,16 +52,45 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-         path="/login" element={<Login onLogin={handleLogin} />} />
+         path="/login" element={
+          user ? <Navigate to={getHomePage(user.role)} /> :
+         <Login onLogin={handleLogin} />
+         } />
 
         <Route
-         path="/signup" element={<Signup />} />
+         path="/signup" element={
+         user ? <Navigate to={getHomePage(user.role)} /> : <Signup />
+         } />
 
         <Route
-          path="/find-doctors" element={<DoctorListing />} />
+          path="/find-doctors" element={
+            user
+              ? (user.role === 'user' && !localStorage.getItem('responsibleDoctor')
+                ? <DoctorListing />
+                : <Navigate to={getHomePage(user.role)} />)
+              : <Navigate to="/login" /> }  />
         
         <Route
-          path="/make-prescription/:userId" element={<MakePrescription />} />
+          path="/make-prescription/:userId" 
+          element={
+            user
+              ? (user.role === 'doktor'
+                ? <MakePrescription />
+                : <Navigate to="/user-home" />)
+              : <Navigate to="/login" />
+          } />
+
+        <Route
+          path="/medical-history" element={
+            user
+              ? (user.role === 'doktor'
+                ? <PrescriptionHistory />
+                : <Navigate to={getHomePage(user.role)} />)
+              : <Navigate to="/login" />
+          } />
+
+        <Route
+          path="/profile/:userId" element={<Profile />} />
 
         <Route
          path="/user-home" 
