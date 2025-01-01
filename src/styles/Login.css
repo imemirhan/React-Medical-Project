@@ -129,6 +129,11 @@ button {
     width: 48%;
     display: inline-block;
     margin-left: 25%;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.submits:hover {
+    background-color: #a09f9f;
 }
 
 /*       Forgot Password button FAF3DD  */

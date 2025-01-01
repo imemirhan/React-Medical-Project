@@ -2,6 +2,23 @@ import React from "react";
 import "./Patients.css";
 import axios from "axios";
 function Patients({ data }) {
+
+  const [doctorData, setDoctorData] = React.useState(null);
+
+  React.useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      axios
+        .get(`http://localhost:5000/api/doctors/${userId}/user`)
+        .then((response) => {
+          setDoctorData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching doctor data:", error);
+        });
+    }
+  }, []);
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
@@ -48,6 +65,19 @@ function Patients({ data }) {
                   .catch((error) => {
                     console.error("Error leaving patient:", error);
                   });
+                  axios
+                    .post("http://localhost:5000/api/medicalhistory", {
+                      user_id: patient.user_id,
+                      doctor_id: doctorData[0].doctor_id,
+                      event_type: "Doctor Left Patient",
+                      event_date: new Date().toISOString(),
+                    })
+                    .then(() => {
+                      console.log("Medical history updated successfully!");
+                    })
+                    .catch((error) => {
+                      console.error("Error updating medical history:", error);
+                    });
               }
             }}
           >

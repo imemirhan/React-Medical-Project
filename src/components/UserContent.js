@@ -42,10 +42,15 @@ const UserContent = () => {
             try {
                 const responsible = await axios.get(`http://localhost:5000/api/responsibles/${userId}/user`);
                 setResponsible(responsible.data);
-                const doctor = await axios.get(`http://localhost:5000/api/doctors/${responsible.data[0].doctor_id}/doctor`);
-                setDoctor(doctor.data);
-                const doctorUser = await axios.get(`http://localhost:5000/api/users/${doctor.data[0].user_id}`);
-                setDoctorUser(doctorUser.data);
+                localStorage.setItem('responsibleDoctor', responsible.data[0]?.doctor_id);
+                if (responsible.data.length > 0) {
+                    const doctor = await axios.get(`http://localhost:5000/api/doctors/${responsible.data[0]?.doctor_id}/doctor`);
+                    setDoctor(doctor.data);
+                    if (doctor.data.length > 0) {
+                        const doctorUser = await axios.get(`http://localhost:5000/api/users/${doctor.data[0].user_id}`);
+                        setDoctorUser(doctorUser.data);
+                    }
+                }
             } catch (error) {
                 console.error('Error fetching doctors:', error);
             }
@@ -82,6 +87,19 @@ const UserContent = () => {
                                                                     setDoctorUser([]);
                                                                     setShowTextbox(false);
                                                                     alert('You have left the doctor successfully');
+                                                                    axios
+                                                                        .post("http://localhost:5000/api/medicalhistory", {
+                                                                        user_id: userId,
+                                                                        doctor_id: localStorage.getItem('responsibleDoctor'),
+                                                                        event_type: "Patient Left Doctor",
+                                                                        event_date: new Date().toISOString(),
+                                                                        })
+                                                                        .then(() => {
+                                                                        console.log("Medical history updated successfully!");
+                                                                        })
+                                                                        .catch((error) => {
+                                                                        console.error("Error updating medical history:", error);
+                                                                        });
                                                                     localStorage.removeItem('responsibleDoctor');
                                                                     window.location.reload();
                                                                 } catch (error) {

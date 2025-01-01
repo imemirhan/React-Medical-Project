@@ -170,7 +170,6 @@ document.body.style.opacity = "0.95"
                     >
                         <option value="user">User</option>
                         <option value="doktor">Doctor</option>
-                        <option value="admin">Admin</option>
                     </select>
                 </div>
 

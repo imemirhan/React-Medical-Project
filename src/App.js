@@ -90,7 +90,11 @@ const App = () => {
           } />
 
         <Route
-          path="/profile/:userId" element={<Profile />} />
+          path="/profile/:userId" element={
+          user
+            ? <Profile />
+            : <Navigate to="/login" />
+          } />
 
         <Route
          path="/user-home" 

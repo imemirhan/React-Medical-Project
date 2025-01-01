@@ -21,7 +21,7 @@ const Profile = () => {
         }, []);
     return (
         <>
-        <Navbar />
+        <Navbar visitRole={userData[0]?.role}/>
         <ProfileContent user={userData}/>
         </>
     );

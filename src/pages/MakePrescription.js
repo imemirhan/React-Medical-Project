@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/MakePrescription.css';
 
@@ -63,7 +64,6 @@ function MakePrescription() {
                 medication_dosage: prescription.dosage,
                 medication_notes: prescription.notes,
                 event_date: new Date().toISOString(),
-                event_type: 'Prescription',
             })
             .then(() => {
                 console.log('Medical history updated successfully');
@@ -91,10 +91,13 @@ function MakePrescription() {
     }, []);
 
     return (
+        <>
+        <Navbar visitRole="doctor"/>
         <div className='make-prescription-container'>
             <h2>Create Prescription</h2>
             {console.log(prescription)}
             <form onSubmit={handleSubmit}>
+                
                 <div className='form-group'>
                     <label htmlFor='medication'>Medication</label>
                     <select 
@@ -143,9 +146,15 @@ function MakePrescription() {
                         required 
                     />
                 </div>
-                <button type='submit' className='submit-button'>Submit</button>
+                {prescription.medicineStock === 0 && (
+                    <div className='error-message'>
+                        This medicine is out of stock. Please choose another medication.
+                    </div>
+                )}
+                <button type='submit' className='submit-button' disabled={prescription.medicineStock === 0}>Submit</button>
             </form>
         </div>
+        </>
     );
 }
 

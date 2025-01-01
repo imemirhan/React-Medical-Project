@@ -7,11 +7,10 @@ const Prescriptions = ({ medicines, myDoctor }) => {
     };
     return (
         <div className='prescriptions-wrapper'>
-            {console.log(medicines)}
             {medicines && medicines.length > 0 ? (
                 medicines.map((medicine, index) => (
                     <div key={index} className='prescription-card'>
-                        <img src={medicine.medicine[0].medicineImage} alt={medicine.medicine[0].medicineName} className='medicine-image' />
+                        <img src={medicine.medicine[0].medicineImage} alt={medicine.medicine[0].medicineName} className='medicine-image-pres' />
                         <h2 className='medicine-name'>{medicine.medicine[0].medicineName}</h2>
                         <p className='medicine-description'><strong>Description:</strong> {medicine.medicine[0].medicineDescription}</p>
                         <p className='medicine-dosage'><strong>Dosage:</strong> {medicine.dosage}</p>

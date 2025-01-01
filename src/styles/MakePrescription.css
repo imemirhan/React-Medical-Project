@@ -2,6 +2,7 @@
     max-width: 600px;
     justify-content: center;
     margin: 0 auto;
+    margin-top: 6em;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -55,4 +56,18 @@
 
 .submit-button:hover {
     background-color: #0056b3;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    text-align: center;
+    font-weight: 800;
+    color: white;
+    background-color: rgb(241, 73, 73);
+    padding: 5px;
+    margin-top: 30px;
 }

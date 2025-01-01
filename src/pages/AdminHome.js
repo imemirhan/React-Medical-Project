@@ -13,9 +13,9 @@ function AdminHome() {
     document.body.style.opacity = "0.95"
     //#endregion
     return(
-        <div className="admin-home-container">
-            <Navbar/>
-        </div>
+        <>
+        <Navbar visitRole="admin"/>
+        </>
     );
 };
 export default AdminHome;

@@ -50,6 +50,19 @@ const DoctorListing = () => {
         .then(() => {
           alert("Doctor chosen successfully!");
           localStorage.setItem("responsibleDoctor", doctorId);
+          axios
+            .post("http://localhost:5000/api/medicalhistory", {
+              user_id: userId,
+              doctor_id: doctorId,
+              event_type: "Patient Chose Doctor",
+              event_date: new Date().toISOString(),
+            })
+            .then(() => {
+              console.log("Medical history updated successfully!");
+            })
+            .catch((error) => {
+              console.error("Error updating medical history:", error);
+            });
           window.location.href = "/user-home";
         })
         .catch((error) => {

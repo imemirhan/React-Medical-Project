@@ -22,7 +22,7 @@ const PrescriptionHistory = () => {
 
     return (
         <>
-        <Navbar/>
+        <Navbar visitRole="doctor"/>
         <HistoryContent prescriptions={prescriptions} />
         </>
     );
