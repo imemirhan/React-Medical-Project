@@ -1,7 +1,5 @@
 import React from 'react';
 import './HistoryContent.css';
-import { useEffect, useState } from 'react';
-import { use } from 'react';
 const HistoryContent = ({ prescriptions }) => {
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
