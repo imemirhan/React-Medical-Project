@@ -6,6 +6,17 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function DoctorContent() {
+
+    // Body Styling
+    //#region 
+    document.body.style.backgroundColor = "black"
+    document.body.style.backgroundAttachment = 'fixed'
+    document.body.style.backgroundRepeat = "no-repeat"
+    document.body.style.fontFamily = "Vibur"
+    document.body.style.fontFamily = "Abel"
+    document.body.style.opacity = "0.95"
+    //#endregion
+
   const [medicineData, setMedicineData] = useState([]);
 
   useEffect(() => {

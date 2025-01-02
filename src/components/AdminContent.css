@@ -2,6 +2,7 @@
 
 .select-btn-admin {
     display: inline-block;
+    width: 18%;
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
@@ -44,4 +45,38 @@
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
+}
+
+.data-item-admin {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    width: 49%;
+    height: 300px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style-type: none; /* Remove bullet points */
+}
+
+.data-item-admin li {
+    list-style-type: none; /* Remove bullet points from list items */
+    padding: 5px 0;
+}
+
+.data-item-admin div {
+    margin-bottom: 5px;
+}
+
+.data-item-admin strong {
+    color: #343a40;
+}
+
+.data-list-admin {
+    padding: 0;
+    margin: 0;
+    list-style-type: none; /* Remove bullet points */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

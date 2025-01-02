@@ -44,9 +44,15 @@ router.post('/users', (req, res) => {
 // Update a user
 router.put('/users/:id', (req, res) => {
     const { id } = req.params;
-    const { username } = req.body;
-    db.query('UPDATE Users SET username = ? WHERE user_id = ?', 
-             [username, id], (err) => {
+    const fields = ['username', 'password', 'email', 'role', 'created_at', 'updated_at']
+        .filter(field => req.body[field])
+        .map(field => `${field} = ?`);
+    const values = fields.map(field => req.body[field.split(' ')[0]]);
+    values.push(id);
+
+    const query = `UPDATE Users SET ${fields.join(', ')} WHERE user_id = ?`;
+
+    db.query(query, values, (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(204).send();
     });
@@ -194,9 +200,15 @@ router.post('/prescriptions', (req, res) => {
 // Update a prescription
 router.put('/prescriptions/:id', (req, res) => {
     const { id } = req.params;
-    const { doctor_id, patient_id, prescription_date, medication, dosage, notes } = req.body;
-    db.query('UPDATE Prescriptions SET doctor_id = ?, patient_id = ?, prescription_date = ?, medication = ?, dosage = ?, notes = ? WHERE prescription_id = ?', 
-             [doctor_id, patient_id, prescription_date, medication, dosage, notes, id], (err) => {
+    const fields = ['doctor_id', 'patient_id', 'prescription_date', 'medication', 'dosage', 'notes']
+        .filter(field => req.body[field])
+        .map(field => `${field} = ?`);
+    const values = fields.map(field => req.body[field.split(' ')[0]]);
+    values.push(id);
+
+    const query = `UPDATE Prescriptions SET ${fields.join(', ')} WHERE prescription_id = ?`;
+
+    db.query(query, values, (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(204).send();
     });
@@ -433,5 +445,31 @@ router.post('/medicalhistory', (req, res) => {
              [user_id, doctor_id, event_type, medication_name, medication_dosage, medication_notes, event_date], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ history_id: results.insertId });
+    });
+});
+
+// Update a medical history
+router.put('/medicalhistory/:id', (req, res) => {
+    const { id } = req.params;
+    const fields = ['user_id', 'doctor_id', 'event_type', 'medication_name', 'medication_dosage', 'medication_notes', 'event_date']
+        .filter(field => req.body[field])
+        .map(field => `${field} = ?`);
+    const values = fields.map(field => req.body[field.split(' ')[0]]);
+    values.push(id);
+
+    const query = `UPDATE MedicalHistory SET ${fields.join(', ')} WHERE history_id = ?`;
+
+    db.query(query, values, (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(204).send();
+    });
+});
+
+// Delete a medical history
+router.delete('/medicalhistory/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM MedicalHistory WHERE history_id = ?', [id], (err) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.status(204).send();
     });
 });
