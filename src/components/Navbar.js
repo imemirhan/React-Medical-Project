@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css'; // Make sure to create and style this CSS file
 import LogoutButton from './LogoutButton';
 import MyProfileButton from './MyProfileButton';

@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar"
 import '../styles/AdminHome.css'
-
+import AdminContent from "../components/AdminContent"
 function AdminHome() {
     // Body Styling
     //#region 
@@ -14,7 +14,8 @@ function AdminHome() {
     //#endregion
     return(
         <>
-        <Navbar visitRole="admin"/>
+            <Navbar visitRole="admin"/>
+            <AdminContent/>
         </>
     );
 };

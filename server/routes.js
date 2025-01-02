@@ -22,6 +22,15 @@ router.get('/users/:id', (req, res) => {
     });
 });
 
+//Get selected users by role
+router.get('/users/:role/role', (req, res) => {
+    const { role } = req.params;
+    db.query('SELECT * FROM Users WHERE role = ?', [role], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(results);
+    });
+});
+
 // Create a new user
 router.post('/users', (req, res) => {
     const { username, password, email, role } = req.body;
