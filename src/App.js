@@ -9,6 +9,7 @@ import DoctorListing from './pages/DoctorListing';
 import MakePrescription from './pages/MakePrescription';
 import Profile from './pages/Profile';
 import PrescriptionHistory from './pages/PrescriptionHistory';
+import About from './pages/About';
 
 const App = () => {
   // Initialize state from localStorage
@@ -121,6 +122,14 @@ const App = () => {
            ? <AdminHome /> 
            : <Navigate to={getHomePage(user.role)} />) 
            : <Navigate to="/login" />} />
+
+        <Route 
+          path="/about" 
+          element={
+            user
+              ? <About />
+              : <Navigate to="/login" />
+          } />
 
         {/* Default Route */}
         <Route path="/" element={<Navigate to={user ? getHomePage(user.role) : '/login'} />} />

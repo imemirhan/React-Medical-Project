@@ -130,3 +130,8 @@
     background-color: #5f4c4c;
     color: white;
 }
+
+.nav-link:hover {
+    background-color: #4c3c3c;
+    color: white;
+}
